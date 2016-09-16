@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+       .done-true {
+        text-decoration: line-through;
+        color: grey;
+        }
+
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+   
+</head>
+
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="../angular/angular.js"></script>-->
+    
+    <h2>My Todo List</h2> 
+
+
+<form ng-submit="todoAdd()">
+
+    <input type="text" ng-model="todoInput" size="50" placeholder="Add New" required="true">
+    <input type="submit" value="Add New">
+</form>
+
+<br>
+
+<div ng-repeat="todo in todoList">
+    <input type="checkbox" ng-model="todo.done" > <span class="done-{{todo.done}}" ng-bind="todo.todoText"></span><span><button ng-click="remove()">Remove </button></span>
+
+</div>
+<div ng-repeat="todo in todoList | filter:todo">
+
+    
+    <button ng-click=""> DONE</button>
+    
+</div>
+<button ng-click=""> ALL</button>
+
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('todoCtrl', function($scope) {
+    $scope.todoList = [{todoText:'Clean House', done:false},{
+    todoText: 'Build an app',
+    done: false
+  }];
+
+    $scope.todoAdd = function() {
+        $scope.todoList.push({todoText:$scope.todoInput, done:false});
+        $scope.todoInput = "";
+    };
+
+    $scope.remove = function() {
+       $scope.todoList.splice(this.$index, 1);
+    };
+});
+</script>
+
+
+</body>s
+</html>
+
